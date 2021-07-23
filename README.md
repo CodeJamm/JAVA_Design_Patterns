@@ -1,5 +1,7 @@
 # JAVA DESIGN PATTERNS ❤️ 
 
+![](https://img.shields.io/github/languages/count/gowthamrajk/gowthamrajk.github.io)   ![](https://img.shields.io/github/languages/top/gowthamrajk/gowthamrajk.github.io)
+
 👋 I have created this module which consists of the Detailed definitions about the JAVA Design Patterns and their practical implementation through Codes.
 
 # 🌱 History of Design Patterns
