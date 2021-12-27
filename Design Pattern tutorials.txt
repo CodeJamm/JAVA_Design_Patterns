@@ -1,0 +1,803 @@
+
+DESIGN PATTERNS : 
+
+- Each pattern describes a problem which occurs over and over again in our environment, and then describes the core of the 
+  solution to that problem in such a way that you can use this solution a million times over, without ever doing it the 
+  same way twice.
+- Pattern occur in every facet of software development, at every phase, and at every level of detail.
+- the ability to recognize patterns allow us to classify problem solutions in terms of problems and contexts.
+
+- represents the best practices followed by experienced software developers.
+- targetted to reduce the problems of object relation & integration.
+- Design patterns acts as a template for real world problems
+- discoverd in 1994 by a group of 4 members, hence called as GOF patterns (Gang Of Four)
+
+Categories : 
+
+1) Creational  ==>  deals with object creation & initialization (Singleton, Factory, Abstract Factory, Builder, Prototype)
+
+2) Structural  ==>  decoupling Interfaces & implementation (Adapter, Composite, Proxy, FlyWeight, Facade, Bridge, Decorator)
+
+3) Behavioural  ==>  communication between classes and objects (Template method, Mediator, Chain of Responsiblities, Observer,
+                                                                Stratergy, Command, State, Visitor, Iterator, Interpretor,
+                                                                Momento)
+
+- In general, pattern has 4 attributes
+NAME => a handle we can use to refer the pattern
+PROBLEM => describes when to apply the pattern
+SOLUTION => describe the elements that makes up the pattern
+CONSEQUENCES => describes the result of using that pattern
+
+*****************************************************************************************************************************
+
+CREATIONAL DESGIN PATTERNS : 
+
+- deals with object creation & Instantiation
+- creates objects based on the usecase, reduces the complexity of object creation by adopting the best way to do it.
+
+==> (Singleton, Factory, Abstract Factory, Builder, Prototype)
+
+Abstract Factory -> creates an instance of several families of classes
+Builder -> builds complete object from scratch
+Factory -> creates object for several group of classes
+Prototype -> copy or clone objects
+Singleton -> only one instance can be created
+Object Pool -> recycle/reuse the objects
+
+*****************************************************************************************************************************
+
+STRUCTURAL DESIGN PATTERNS : 
+
+- These design patterns concern class and object composition. 
+- decoupling Interfaces & implementation.
+- Concept of inheritance is used to compose interfaces and define ways to compose objects to obtain new functionalities.
+
+==> (Adapter, Composite, Proxy, FlyWeight, Facade, Bridge, Decorator)
+
+*****************************************************************************************************************************
+
+BEHAVIOURAL DESIGN PATTERNS : 
+
+- These design patterns are specifically concerned with communication between objects.
+
+==> (Template method, Mediator, Chain of Responsiblities, Observer, Stratergy, Command, State, Visitor, Iterator,
+     Interpretor, Momento)
+
+#############################################################################################################################
+
+
+Model View Controller (MVC) : 
+
+- This is the base of all the design patterns
+- The main aim of this is to decouple the things (clear seperation of layers so that it won't be tightly coupled)
+
+MODEL => holds data & manipulates it. eg: student object holds marks, subject, class, etc...
+
+VIEW => Presentation layer. eg: UI page, charts, tables, etc...
+
+CONTROLLER => acts as a mediator between model & view, defines the way which the UI wraps with the user.
+
+#############################################################################################################################
+#############################################################################################################################
+
+
+JAVA STANDARD PATTERNS : 
+
+1) Intercepting Filter Pattern : 
+
+- It is used when we want to do some pre-processing / post-processing with request or response of the application. 
+- Filters are defined and applied on the request before passing the request to actual target application. 
+- Filters can do the authentication/ authorization/ logging or tracking of request and then pass the requests to 
+  corresponding handlers. 
+
+Filter => Filter which will performs certain task prior or after execution of request by request handler.
+
+Filter Chain => Filter Chain carries multiple filters and help to execute them in defined order on target.
+
+Target => Target object is the request handler
+
+Filter Manager => Filter Manager manages the filters and Filter Chain.
+
+Client => Client is the object who sends request to the Target object.
+
+#############################################################################################################################
+
+2) Front Controller Pattern : 
+
+- The front controller design pattern is used to provide a centralized request handling mechanism so that all requests 
+  will be handled by a single handler. 
+- This handler can do the authentication/ authorization/ logging or tracking of request and then pass the requests to 
+  corresponding handlers. 
+
+Front Controller => Single handler for all kinds of requests coming to the application (either web based/ desktop based).
+
+Dispatcher => Front Controller may use a dispatcher object which can dispatch the request to corresponding specific handler.
+
+View => Views are the object for which the requests are made
+
+
+working :
+
+HTTP request ===> DispatcherServlet <===> Handler Mapping
+      |                             <===> Controller
+      |                             <===> View Resolver
+      |                             <===> View
+      |<================================= HTTP response     
+
+#############################################################################################################################
+
+3) View Helper Pattern : 
+
+- View Helper Pattern separates the static view such as JSP's from the processing of the business model data.
+- Frameworks like Spring and Struts provide their own tag libraries to encapsulate processing logic in a helper instead of 
+  a view such as JSP files.
+- Mingling control logic, data access logic and formatting logic within view components lead to problems with modularity, 
+  reuse, maintenance, and role separation.
+- Use Views to encapsulate formatting code and Helpers to encapsulate view-processing logic. 
+- A View delegates its processing responsibilities to its helper classes, implemented as POJOs, custom tags, or tag files. 
+- Helpers serve as adapters between the view and the model, and perform processing related to formatting logic, such as 
+  generating an HTML table.
+
+Client => A Client dispatches to the View.
+
+View => A View represents and displays information to the Client. The information that is used in a dynamic display is 
+        retrieved and converted from a presentation model by helpers.
+
+Helper1, Helper2 => A helper encapsulates processing logic for generating and formatting a View. A helper typically adapts 
+                    a PresentationModel for a view or provides access to the raw data of the PresentationModel. 
+                    A view works with any number of helpers, typically implemented as Java- Beans, custom tags, or tag files.
+
+Presentation Model => The PresentationModel holds the data retrieved from the business service, used to generate the View.
+
+#############################################################################################################################
+
+4) Business Delegate Pattern : 
+
+- Business Delegate Pattern is used to decouple presentation tier and business tier. 
+- It is basically use to reduce communication or remote lookup functionality to business tier code in presentation tier code.
+
+Client => Presentation tier code may be JSP, servlet or UI java code.
+
+Business Delegate => A single entry point class for client entities to provide access to Business Service methods.
+
+LookUp Service => Lookup service object is responsible to get relative business implementation and provide business object access to business delegate object.
+
+Business Service => Business Service interface. Concrete classes implement this business service to provide actual business implementation logic.
+
+#############################################################################################################################
+
+5) Service Locator Pattern : 
+
+- The service locator design pattern is used when we want to locate various services using JNDI lookup. 
+- Considering high cost of looking up JNDI for a service, Service Locator pattern makes use of caching technique. 
+- For the first time a service is required, Service Locator looks up in JNDI and caches the service object. 
+- Further lookup or same service via Service Locator is done in its cache which improves the performance of application to great extent.
+
+Service => Actual Service which will process the request. Reference of such service is to be looked upon in JNDI server.
+
+Context / Initial Context => JNDI Context carries the reference to service used for lookup purpose.
+
+Service Locator => Service Locator is a single point of contact to get services by JNDI lookup caching the services.
+
+Cache => Cache to store references of services to reuse them
+
+Client => Client is the object that invokes the services via ServiceLocator.
+
+#############################################################################################################################
+
+6) Composite View Pattern :
+
+- Use Composite Views that are composed of multiple atomic subviews. 
+- Each subview of the overall template can be included dynamically in the whole, and the layout of the page can be managed 
+  independently of the content.
+- For example, the portal sites that include numerous independent subviews, such as news feeds, weather information, and 
+  stock quotes on a single page. 
+- The layout of the page is managed and modified independently of the subview content.
+
+Client => A Client dispatches to a View.
+View => A View represents the display.
+SimpleView => A SimpleView represents an atomic portion of a composite whole. It is also referred to as a view segment or subview.
+CompositeView => A CompositeView is composed of multiple Views. Each of these Views is either a SimpleView or itself potentially a CompositeView.
+Template => A Template represents the view layout.
+
+#############################################################################################################################
+
+7) Session Facade Pattern : 
+
+- Facade pattern hides the complexities of the system and provides an interface to the client using which the client can 
+  access the system. 
+- This type of design pattern comes under structural pattern as this pattern adds an interface to existing system to hide 
+  its complexities.
+- This pattern involves a single class which provides simplified methods required by client and delegates calls to methods 
+  of existing system classes.
+
+Eg : Payment through credit card in swiping machine (It can facilitate to pay options like pin validation, dail, print receipt,
+     debit card payment, credit card payment, food card, EMI based payment, etc... but don't show its underlying implementation)
+
+#############################################################################################################################
+
+8) Data Access object Pattern : 
+
+- Data Access Object Pattern or DAO pattern is used to separate low level data accessing API or operations from high level 
+  business services. 
+- This pattern is used for DAO layered architecture while interacting with the Database.
+- This takes care of opening connection, executing query, fetching the resultset data, etc...
+
+Data Access Object Interface => This interface defines the standard operations to be performed on a model object(s).
+
+Data Access Object concrete class => This class implements above interface. This class is responsible to get data from a data source which can be database / xml or any other storage mechanism.
+
+Model Object or Value Object => This object is simple POJO containing get/set methods to store data retrieved using DAO class.
+
+#############################################################################################################################
+
+9) Value List Handler Pattern : 
+
+- This pattern is mainly used to Iterate over a large result set of values.
+- Use a Value List Handler to search, cache the results, and allow the client to traverse and select items from the results.
+
+- This pattern creates a ValueListHandler to control query execution functionality and results caching. 
+- The ValueListHandler directly accesses a DAO that can execute the required query. 
+- The ValueListHandler stores the results obtained from the DAO as a collection of Transfer Objects. 
+- The client requests the ValueListHandler to provide the query results as needed. 
+- The ValueListHandler implements an Iterator pattern [GoF] to provide the solution.
+
+eg: searching the contents in a website by applying various filters on the result
+
+#############################################################################################################################
+
+10) Transfer Object Pattern : 
+
+- It is mainly used to transfer multiple data elements over a tier.
+- The Transfer Object pattern is used when we want to pass data with multiple attributes in one shot from client to server. 
+- Transfer object is also known as Value Object. 
+- Transfer Object is a simple POJO class having getter/setter methods and is serializable so that it can be transferred over 
+  the network. It does not have any behavior. 
+- Server Side business class normally fetches data from the database and fills the POJO and send it to the client or pass 
+  it by value. For client, transfer object is read-only. 
+- Client can create its own transfer object and pass it to server to update values in database in one shot.
+
+Business Object => Business Service fills the Transfer Object with data.
+
+Transfer Object => Simple POJO having methods to set/get attributes only.
+
+Client => Client either requests or sends the Transfer Object to Business Object.
+
+#############################################################################################################################
+#############################################################################################################################
+
+
+CREATIONAL DESIGN PATTERNS : 
+
+
+1) Singleton Design Pattern : 
+
+- It creates only one instance 
+- It aims to keep a check on initialization of objects of a particular class by ensuring that only one instance of the object
+  exists throughout the JVM.
+- If a class does the common functionalities, singleton objects can be used. 
+- But if the class do some specific values for each object,  there singleton cannot be used. 
+
+Advantages :
+
+- saves memory
+- improves performance
+
+Implementation rules :
+
+- private constructors should be used.
+
+Realtime examples :
+
+- runtime classes
+
+eg:
+ 
+public class Singleton {
+
+  private static Singleton single_instance = null;
+  public String s;
+
+  private Singleton() {
+    s = "Hello, this is Singleton class";
+  } 
+
+  public static Singleton getInstance() {
+    if(single_instance == null) {
+      single_instance = new Singleton();
+    }
+    return single_instance;
+  }
+}
+
+Calender calenderObj = Calender.getInstance();
+
+- Only one instance is ever created and this same shared instance is injected into each colloborating object.
+
+*****************************************************************************************************************************
+
+2) Factory Design Pattern : 
+
+- This pattern defines an interface for creating object, but let subclasses decide which class to instantiate. 
+- The Fatory method lets a class defer instantiation to subclass.
+
+Eg: buying a soap from shop (hamam, rexona, lux) . We only say what soap we need by its name, but we dont need to know 
+    how that soap is manufactured.
+
+eg:
+
+public class PolygonFactory {
+    public Polygon getPolygon(int numberOfSides) {
+        if(numberOfSides == 3) {
+            return new Triangle();
+        }
+        if(numberOfSides == 4) {
+            return new Square();
+        }
+        if(numberOfSides == 5) {
+            return new Pentagon();
+        }
+        if(numberOfSides == 6) {
+            return new Hexagon();
+        }
+        if(numberOfSides == 7) {
+            return new Heptagon();
+        }
+        if(numberOfSides == 8) {
+            return new Octagon();
+        }
+        return null;
+    }
+}
+
+*****************************************************************************************************************************
+
+3) Abstract Factory Design Pattern : 
+
+- It adds one level of abstraction to Factory Design Pattern
+- It says that just define an abstract class or interface for creating families of related objects but without specifying 
+  their concrete sub-classes.
+- Abstract factory lets a class return a factory of classes.
+
+Java Eg: in java, DocumentBuilderFactory is an abstract factory used to parse the xml documents. 
+
+eg:
+
+public class GlobalCarFactory {
+    public CarFactory getCarFactory(String location) {
+        if(location.equals("USA")) {
+            return new USACarFactory();
+        }
+        if(location.equals("INDIA")) {
+            return new IndianCarFactory();
+        }
+        if(location.equals("EUROPE")) {
+            return new EuropianCarFactory();
+        }
+        if(location.equals("RUSSIA")) {
+            return new RussianCarFactory();
+        }
+        return null;
+    }
+}
+
+*****************************************************************************************************************************
+
+4) Prototype Design Pattern : 
+
+- It says that cloning of an existing object instead of creating new one and can also be customized as per the requirement.
+- For example, an object is to be created after a costly database operation. 
+  We can cache the object, returns its clone on next request and update the database as and when needed thus reducing 
+  database calls.
+
+Advantages :
+
+- saves memory, improves computation process. 
+
+Realtime Eg : download a movie from internet and share it with friends through copying in dvd, pendrive,etc...
+
+*****************************************************************************************************************************
+
+5) Object Pool Design Pattern : 
+
+- It is a container which contains specified amount of objects.
+- when an object is taken from the pool, it is not available in the pool until it is put back. 
+- Objects in the pool have a lifecycle: creation, validation & destroy.
+
+Advantages :
+
+- saves memory
+- increases performance
+- reduces object creation and saves resources
+
+Realtime Eg: library - there will be many books in library. If one person needs a book which already one person is reading, 
+             new person has to wait until he returns that book. Same way the objects in the pool are reused. 
+
+Java Eg: creation database connection through DataSource object and managing it in connection pool.
+
+*****************************************************************************************************************************
+
+6) Builder Design Pattern : 
+
+- It says that construct a complex object from simple objects using step-by-step approach.
+- This type of design pattern comes under creational pattern as this pattern provides one 
+  of the best ways to create an object.
+
+eg: Meal builder class, which can build a meal(veg/non-veg) with the meal details as a class, packing as seperate class, etc...
+
+Realtime Eg: laptop (plugin memory disk, plugin processor, display screen etc...  And assesmble as a single laptop) 
+
+             Preparing pizza  => pizza base+toppins+spices,etc... 
+ 
+*****************************************************************************************************************************
+*****************************************************************************************************************************
+
+STRUCTURAL DESIGN PATTERNS : 
+
+7) Adapter Design Pattern : 
+
+- just convert the interface of a class to another interface that a client wants.
+- Adapter pattern works as a bridge between two incompatible interfaces.
+- This pattern involves a single class which is responsible to join functionalities of independent or incompatible interfaces. 
+
+- A real life example could be a case of card reader which acts as an adapter between memory card and a laptop. 
+You plugin the memory card into card reader and card reader into the laptop so that memory card can be read via laptop.
+
+Java example : adapter that can adapt to different database configurations like oracledb, sybase, mysql, postgresql, etc.. 
+
+Realtime examples : 
+- Mac usbc to usb,  memory card reader, phone charger to plug 220v to 9v.  
+
+- Let's take a look at a person travelling in different countries with their laptop and mobile device. we have a different 
+electric socket, volt, frequency in different countries and adapter makes use of any appliance free to work.
+
+*****************************************************************************************************************************
+
+8) Decorator Design Pattern : 
+
+- It says that just attach a flexible additional responsiblities to an oject dynamically.
+- Decorator pattern allows a user to add new functionality to an existing object without altering its structure. 
+- This type of design pattern comes under structural pattern as this pattern acts as a wrapper to existing class.
+- This pattern creates a decorator class which wraps the original class and provides additional functionality keeping 
+  class methods signature intact.
+
+- whenever an objects wants to behave dynamically based on the request / when we want to add some additional responsiblity
+  without affecting the actual one, we can use this pattern.
+
+Java Eg:
+
+-> adding red border to a shape drawn (square/rectangle/circle)
+-> Logger (it is one of the best example for decorator pattern)
+
+Realtime Example : 
+
+-> Ice cream => the ice cone will be already prepared and kept, based on the customer need, the vannila/chocoloate/strawberry
+                cream will be filled at runtime and given to the user.
+   Pizza => the pizza base will be common. the spice and topings will be different based on the customer need.
+
+*****************************************************************************************************************************
+
+9) Bridge Design Pattern : 
+
+- It says that decouple the functional abstraction from the implementation so that the two can vary independently.
+- This type of design pattern comes under structural pattern as this pattern decouples implementation class and 
+  abstract class by providing a bridge structure between them.
+- This pattern involves an interface which acts as a bridge which makes the functionality of concrete classes independent 
+  from interface implementer classes. 
+- Both types of classes can be altered structurally without affecting each other.
+
+eg: creating a circle by shape object and using an interface as a bridge which can create object for drawing red/green circles.
+
+Realtime example : 
+
+when user click on a send message button, the message will be sent. but user don't need to know the underlying implementation
+behind the process of sending message. here button will be hiding/abstracting the behind mechanisms and acts like a bridge.
+
+*****************************************************************************************************************************
+
+10) FlyWeight Design Pattern : 
+
+- It says that just to reuse already existing similar kind of objects by storing them and create new object when no matching 
+  object is found.
+- creating large number of objects can be avoided by using this flyweight pattern.
+- It is primarily used to reduce the number of objects created and to decrease memory footprint and increase performance. 
+- This type of design pattern comes under structural pattern as this pattern provides ways to decrease object count thus 
+  improving the object structure of application.
+- Flyweight pattern tries to reuse already existing similar kind objects by storing them and creates new object when 
+  no matching object is found. 
+- Objects are shared which are of similar nature.
+
+eg: Drawing 20 circles of different locations, but create only 5 objects. 
+    Only 5 colors are available so color property is used to check already existing Circle objects.
+
+Realtime Eg : 
+
+- Taking one printout copy and taking 1000 xerox copies to save money instead of directly taking 1000 print outs.
+
+*****************************************************************************************************************************
+
+11) Proxy Design Pattern : 
+
+- In proxy pattern, a class represents functionality of another class. 
+- This type of design pattern comes under structural pattern.
+- In proxy pattern, we create object having original object to interface its functionality to outer world.
+- provides the control for accessing the original object.
+- so we can perform many operations like hiding the information or original object, on demand loading, etc...
+
+=> 3 types of proxy are widely used : 
+
+Virtual Proxy => the real object is only created when the client request/access the object.
+ 
+Remote Proxy => provides a local representative for an object that resides in a different address space.
+
+Protective Proxy => It controls access to the master object by checking the accessiblity, etc...
+
+eg: real image and proxy image classes which implements image interface.
+
+-> when the client calls the real object, the proxy object comes into act and controls the access by checking whether the 
+   client is accessible to that real object or not.
+
+Realtime Eg:
+
+-> when we need some money, we have two ways. 1) directly go to bank, fill the chalan, get the amount. 2) go to nearby ATM,
+   enter PIN and amount, get amount. here 2nd approach is most prefered since it saves time and effort. here, ATM is a proxy
+   object. when we enter the card PIN & amount, the proxy object now invokes the master object(bank) to check the credentials,
+   check sufficient balance, debit amount and the proxy object returns result(money) to the user.
+
+*****************************************************************************************************************************
+
+12) Composite Design Pattern : 
+
+- The objects are represented in a Tree structure.
+- Composite pattern is used where we need to treat a group of objects in similar way as a single object. 
+- This type of design pattern comes under structural pattern as this pattern creates a tree structure of group of objects.
+- This pattern creates a class that contains group of its own objects & this class provides ways to modify its group of 
+  same objects.
+
+- If any operation is applied on any of the leaf objects, it should also be performed on other leaf and composite objects.
+
+Eg:                    Car
+                     /     \
+                  engine   tyre
+                 /      \
+           electrical  valves
+           /      \
+        wires   sensors
+
+-> car having engine & tyre as child objects, engine has electrical & valves as child objects, electrical has wires & sensors
+   as child objects.
+-> any object that has some child objects is called as composite objects (car, engine, electrical)
+-> tyre, valves, wires, sensors are called as leaf objects hence they don't have any child objects. 
+
+*****************************************************************************************************************************
+
+13) Facade Design Pattern : 
+
+- Facade means Front view(what ever we see at the front)
+- It means single class representing the entire system
+- A simple Interface provided for a comples system environment.
+- It is a structural design pattern since it given a structure to the object system.
+
+Realtime Eg : 
+
+- ATM => The end user will get a simple user interface just to enter PIN and enter amount. but at the backside, It does 
+         various complex process like account number validation, checking sufficient funds, pin validation, security code,
+         money debit, etc...
+
+*****************************************************************************************************************************
+*****************************************************************************************************************************
+
+BEHAVIOURAL DESIGN PATTERNS : 
+
+14) Chain of Responsiblities Design Pattern : 
+
+- Avoid coupling the sender of a request to its receiver by giving multiple objects a chance to handle the request. 
+  eg: an ATM uses this pattern in cash withdrawal process.
+
+- The chain of responsibility pattern creates a chain of receiver objects for a request. 
+- This pattern decouples sender and receiver of a request based on type of request. 
+- This pattern comes under behavioral patterns.
+- In this pattern, normally each receiver contains reference to another receiver. 
+- If one object cannot handle the request then it passes the same to the next receiver and so on.
+
+eg: filter chain is also an example of chain of responsiblities
+
+Realtime Eg : 
+
+-> One receiver => when a person asks question to person1 in a quiz competetion, if he don't know the answer, he will pass 
+                   the question to person2, and if he don't know, passes to person3 and so on.
+   One or more receivers => ATM cash withdraw machine (when rs 620 is withdrawn, 1*500 = 500, 1*100 = 100, 1*20 = 20. here
+                            three types of receivers acts and gives the money accordingly)
+
+*****************************************************************************************************************************
+
+15) Iterator Design Pattern : 
+
+- To access the elements of an aggregate object sequentially without exposing its underlying implementation.
+- Iterator pattern is very commonly used design pattern in Java and .Net programming environment. 
+- This pattern is used to get a way to access the elements of a collection object in sequential manner without any need to 
+  know its underlying representation.
+
+eg: a helper boy helps a farmer to sell his goods to people who are standing in a queue with a token based system where
+    when one person is completed, farmer calls next and the boy send the next person in the queue. (the farmer don't know 
+    the actual process which the boy follows)
+
+List<Integer> numbers = Arrays.asList(1,2,3,4,5,6,7,8);
+numbers.forEach(number -> {
+    System.out.print(".");
+    System.out.print(number);
+});
+ 
+*****************************************************************************************************************************
+
+16) Observer Design Pattern : 
+
+- Also called as Listener design pattern.
+- It just define a One-to-many dependency so that when one object changes state, all its dependent are notified and updated 
+  automatically.
+- Observer pattern is used when there is one-to-many relationship between objects such as if one object is modified, 
+  its depenedent objects are to be notified automatically. 
+- more loosely coupled.
+
+          notify()
+subject ============> SlackObserver
+
+          notify()
+        ============> EmailObserver
+
+          notify()
+        ============> screenObserver
+
+Realtime Eg :
+
+-> when we want to buy a smart Tv online, but the project is outof stock right now. we would register for that project and
+   wait for it. once the product is available, all the perople who have registered will get notified about it. here the 
+   tv is the subject, people are the observers. each observer don't know about each other, but the subject maintains info
+   about all the registered observers.
+
+*****************************************************************************************************************************
+
+17) Mediator Design Pattern : 
+
+- It is used to reduce the communication complexity between multiple objects/classes.
+- This pattern provides a mediator class which normally handles all the communications between different classes 
+  and supports easy maintainability of the code by loose coupling.
+
+eg: user using a chatroom as a mediator to share their messages.
+
+Realtime Example : 
+
+-> In an airport, if three flights A,B,C are landing at a same time, the ATC(Air Traffic Controller) will act as a mediator 
+   which communicates with other objects(flights) and handles their requests and communicate with them.
+
+*****************************************************************************************************************************
+
+18) Stratergy Design Pattern : 
+
+- It defines a family of functionalitiy, encapsulate each one and make then interchangeable.
+- In Strategy pattern, a class behavior or its algorithm can be changed at run time. 
+- In Strategy pattern, we create objects which represent various strategies and a context object whose behavior varies 
+  as per its strategy object. 
+- The strategy object changes the executing algorithm of the context object.
+
+- It is used when there are multiple algorithms for a specific task and the client finds the best implementation.
+
+eg: executing the stratergies as addition/subtraction/multiplication/division operation classes that implements from operation
+    interface which can be changed/called at run time dynamically.
+
+Realtime Eg : 
+
+-> when we go for a shopping mall and purchase for 10,000 rs, we have multiple payment options like cash/credit card/
+   debit card. we can choose the appropriate option to purchase and pay through it.
+
+*****************************************************************************************************************************
+
+19) Command Design Pattern : 
+
+- It says that encapsulate a request under an object as a command and pass it to invoker object. Invoker object looks for the 
+  appropriate object which can handle this command and pass the command to the corresponding object and that object executes 
+  the command.
+- It is a data driven design pattern
+
+eg: invoking the order interface which can either book order or sell order as its implementing classes.
+
+*****************************************************************************************************************************
+
+20) Visitor Design Pattern : 
+
+- It changes the execution algorithm of various objects as the visitor varies
+- Element object has to accept the visitor object so that the visitor can execute its algorithm on the element object.
+- By this way, execution algorithm of element can vary as and when visitor varies. 
+- This pattern comes under behavior pattern category. 
+- As per the pattern, element object has to accept the visitor object so that visitor object handles the operation on the 
+  element object.
+
+Realtime Eg:
+
+-> considering a country which varies the tax for every month based on the food type.
+
+-> when we invite our friends, family to a function, the visitors will decide to buy gifts differently based on the function
+   they are invited.
+
+*****************************************************************************************************************************
+
+21) State Design Pattern : 
+
+- In State pattern a class behavior changes based on its state. 
+- This type of design pattern comes under behavior pattern.
+- In State pattern, we create objects which represent various states and a context object whose behavior varies as its 
+  state object changes
+- Based on the state, the behaviour will be completely changes.
+
+Realtime Eg : 
+
+-> ATM machine => state 1 : when card not inserted, no process will be done.
+                  state 2 : when card inserted => validate the PIN, check balance, withdraw, etc...
+
+
+-> Human => 8.00 am -> wakeup
+            9.30 am -> brakefast
+            10.00 am -> work started
+            1.00 pm -> lunch
+            6.00 pm -> work ended
+            8.00 pm -> dinner
+            10.00 pm -> sleep
+
+(based on the state of object, its behaviour also changes completely)
+
+*****************************************************************************************************************************
+
+22) Null Object Design Pattern :
+
+- It replaces "null" checks.
+-If we follow this pattern, we can overcome the traditional way of null checks.
+- Default behaviour of objects which has "null" or nothing
+- It would be very useful if we want some special flow for something that contains null or nothing in it.
+
+Eg: Spam classification
+
+
+*****************************************************************************************************************************
+
+23) Template Method Design Pattern : 
+
+- An abstract class exposes defined way(s)/template(s) to execute its methods. 
+- Its subclasses can override the method implementation as per need but the invocation is to be in the same way as defined 
+  by an abstract class. 
+- This pattern comes under behavior pattern category.
+- It defines a sequence of steps of an algorithm.
+
+Eg: House Building => basement, pillars, side walls, roof, etc...
+
+    Software Development => Analysis, Design, Development, test.
+
+- certain defined steps are followed as templates.
+
+*****************************************************************************************************************************
+
+24) Interpreter Design Pattern : 
+
+- It provides a way to evaluate language grammer expression
+- Java compiler that interprets source code into byte-code.
+- defines a gramatical expression for a language and an interpreter to interpret the grammer
+- widely used in compiler used in object oriented programming languages
+
+Eg : Java compiler
+
+*****************************************************************************************************************************
+
+25) Momento Design Pattern : 
+
+- It maintains the previous state information eg: undo / rollback
+- Basic objects that is stored in different states.
+
+Eg : 
+
+Bank transaction -> depositing 100000, debiting 5000, balance is 95000. Now if we want to deposit 5000, then it goes to the
+                    previous transaction with balance of 100000
+
+*****************************************************************************************************************************
+*****************************************************************************************************************************
+
+
+
